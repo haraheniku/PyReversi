@@ -12,16 +12,16 @@ from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import qmlRegisterType, QQmlApplicationEngine
 
 
-DIRECTIONS = {
-    "up": (0, -1),
-    "up_left": (-1, -1),
-    "left": (-1, 0),
-    "down_left": (-1, 1),
-    "down": (0, 1),
-    "down_right": (1, 1),
-    "right": (1, 0),
-    "up_right": (1, -1),
-}
+DIRECTIONS = [
+    (0, -1),  # UP
+    (-1, -1), # UP_LEFT
+    (-1, 0),  # LEFT
+    (-1, 1),  # DOWN_LEFT
+    (0, 1),   # DOWN
+    (1, 1),   # DOWN_RIGHT
+    (1, 0),   # RIGHT
+    (1, -1),  # UP_RIGHT
+]
 
 
 class Player(QObject):
@@ -151,7 +151,7 @@ class Game(QObject):
 
         x, y = self.getXY(index)
         fliped = False
-        for direction, (dx, dy) in DIRECTIONS.items():
+        for dx, dy in DIRECTIONS:
             d = 0
             nx, ny = x, y
             while True:
