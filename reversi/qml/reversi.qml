@@ -46,12 +46,13 @@ ApplicationWindow {
                 border.width: 1
 
                 Rectangle {
-                    id: stone
                     width: 40; height: 40
                     radius: width / 2
                     anchors.centerIn: parent
-                    color: {
-                        switch (game.board[index]) {
+                    color: getColor(game.board[index])
+
+                    function getColor(disk) {
+                        switch (disk) {
                         case Game.BLACK:
                             return "black";
                         case Game.WHITE:
