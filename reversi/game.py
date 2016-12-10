@@ -1,4 +1,5 @@
 import sys
+import os
 
 from PyQt5.QtCore import (
     QObject,
@@ -19,7 +20,7 @@ DIRECTIONS = {
     "down": (0, 1),
     "down_right": (1, 1),
     "right": (1, 0),
-    "up_right": (1, 1),
+    "up_right": (1, -1),
 }
 
 
@@ -156,15 +157,17 @@ class Game(QObject):
             while True:
                 nx, ny = nx + dx, ny + dy
                 if nx < 0 or nx >= self._width:
+                    d = 0
                     break
                 if  ny < 0 or ny >= self._height:
+                    d = 0
                     break
 
                 disk = self.getDiskXY(nx, ny)
                 if disk == Game.Disk.EMPTY:
                     d = 0
                     break
-                if disk != self.anotherPlayer.color:
+                if disk == self.currentPlayer.color:
                     break
                 d += 1
 
@@ -185,7 +188,8 @@ if __name__ == "__main__":
     qmlRegisterType(Game, 'Reversi', 1, 0, 'Game')
     qmlRegisterType(Player, 'Reversi', 1, 0, 'Player')
 
-    engine = QQmlApplicationEngine("reversi.qml")
+    qml_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), "qml")
+    engine = QQmlApplicationEngine(os.path.join(qml_dir, "reversi.qml"))
     # engine.quit.connect(app.quit)
 
     root = engine.rootObjects()[0]
