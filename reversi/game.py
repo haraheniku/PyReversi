@@ -150,7 +150,7 @@ class Game(QObject):
             return False
 
         x, y = self.getXY(index)
-        fliped = False
+        flipped = False
         for dx, dy in DIRECTIONS:
             d = 0
             nx, ny = x, y
@@ -175,12 +175,12 @@ class Game(QObject):
                 for i in range(d+1):
                     nx, ny = x + i * dx, y + i * dy
                     self._placeDiskXY(nx, ny, self._currentPlayer.color)
-                fliped = True
+                flipped = True
 
-        if fliped:
+        if flipped:
             self.boardChanged.emit()
             self.changePlayer()
-        return fliped
+        return flipped
 
 
 if __name__ == "__main__":
@@ -192,7 +192,7 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine(os.path.join(qml_dir, "reversi.qml"))
     # engine.quit.connect(app.quit)
 
-    root = engine.rootObjects()[0]
-    game = root.findChild(Game, "game")
+    # root = engine.rootObjects()[0]
+    # game = root.findChild(Game, "game")
 
     sys.exit(app.exec_())
