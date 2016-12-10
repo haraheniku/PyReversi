@@ -5,6 +5,7 @@ import Reversi 1.0
 
 
 ApplicationWindow {
+    title: "PyReversi"
     visible: true
 
     Game {
